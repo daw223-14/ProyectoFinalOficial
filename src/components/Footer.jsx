@@ -1,0 +1,71 @@
+import React from "react";
+import "../styles/Footer.css";
+
+export default function Footer() {
+  return (
+    <footer className="bg-dark pb-0 text-white pt-4 mt-4">
+      <div className="container">
+        <div className="row justify-content-md-between gutter-2">
+
+          <div className="order-md-1 col-md-8 col-lg-4">
+            <div className="row">
+              <div className="col">
+                <h5 className="eyebrow mb-1">CYCLE'S</h5>
+                <ul className="menu-list list-unstyled">
+                  <li className="menu-list-item"><a href="#" className="menu-list-link">Sobre Nosotros</a></li>
+                  <li className="menu-list-item"><a href="#" className="menu-list-link">Terminos y Condiciones</a></li>
+                  <li className="menu-list-item"><a href="#" className="menu-list-link">Prensa</a></li>
+                  <li className="menu-list-item"><a href="#" className="menu-list-link">Ajustes de Privacidad</a></li>
+                </ul>
+              </div>
+              <div className="col">
+                <h5 className="eyebrow mb-1">Centro de Ayuda</h5>
+                <ul className="menu-list list-unstyled">
+                  <li className="menu-list-item"><a href="#" className="menu-list-link">Shipping</a></li>
+                  <li className="menu-list-item"><a href="#" className="menu-list-link">Devoluciones</a></li>
+                  <li className="menu-list-item"><a href="#" className="menu-list-link">Pagos</a></li>
+                  <li className="menu-list-item"><a href="#" className="menu-list-link">FAQ</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="order-md-3 col-md-8 col-lg-4">
+            <h5 className="eyebrow mb-1">Subscribete a la Newsletter</h5>
+            <div className="input-combined mb-3">
+              <input type="text" className="form-control" placeholder="Tu correo..." aria-label="Your Email" aria-describedby="button-addon2" />
+              <button className="btn btn-outline-secondary" type="button" id="button-addon2">Subscribete</button>
+            </div>
+            <ul className="row list-unstyled">
+              <li className="col"><a href="#!" className="text-white"><i className="bi bi-facebook"></i></a></li>
+              <li className="col"><a href="#!" className="text-white"><i className="bi bi-instagram"></i></a></li>
+              <li className="col"><a href="#!" className="text-white"><i className="bi bi-twitter"></i></a></li>
+              <li className="col"><a href="#!" className="text-white"><i className="bi bi-linkedin"></i></a></li>
+            </ul>
+          </div>
+
+          <div className="order-md-3 col-md-4 col-lg-3">
+            <h5 className="eyebrow mb-1">Region & Currency</h5>
+            <div className="select-frame mb-2">
+              <select className="form-select form-select-lg mb-2" id="countrySelect2">
+                <option value="1">United States</option>
+                <option value="2">España</option>
+              </select>
+            </div>
+            <div className="select-frame">
+              <select className="form-select form-select-lg" id="curencySelect2">
+                <option value="1">USD</option>
+                <option value="2">EUR</option>
+              </select>
+            </div>
+            <ul className="row mt-2 list-unstyled">
+              <li className="col"><img src="src/assets/visa-1.svg" className="payment" alt="allwell" /></li>
+              <li className="col"><img src="src/assets/master-card-1.svg" className="payment" alt="allwell" /></li>
+              <li className="col"><img src="src/assets/amex-1.svg" className="payment" alt="allwell" /></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}

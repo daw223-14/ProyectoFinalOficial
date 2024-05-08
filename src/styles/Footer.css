@@ -1,0 +1,24 @@
+.payment {
+    width: 100%;
+    max-width: 2.5rem;
+}
+
+.menu-list .menu-list-item:not(:first-child) {
+    margin-top: 0.3125rem;
+}
+
+.menu-list .menu-list-link {
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    transition: all 0.2s;
+    -webkit-transition-delay: 0s;
+    -moz-transition-delay: 0s;
+    transition-delay: 0s;
+    display: inline-block;
+    padding: 0.15625rem 0;
+    color: white;
+}
+
+.menu-list .menu-list-link:hover {
+    opacity: .5;
+}
