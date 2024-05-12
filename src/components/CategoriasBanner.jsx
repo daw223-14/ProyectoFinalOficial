@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import "/src/styles/Card.css";
 
 function CategoriasBanner(props) {
     const scrollToSection = (sectionId, targetPosition = 0) => {

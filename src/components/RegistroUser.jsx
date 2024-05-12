@@ -51,23 +51,23 @@ function SignupForm() {
         }
 
         if (!/^[a-zA-Z][a-zA-Z0-9]*$/.test(formData.username)) {
-            errors.push("Invalid username. It must start with a letter and can contain only letters and numbers.");
+            errors.push("Nombre de usuario no válido. Debe de empezar por una letra.");
         }
 
         if (!/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(formData.correo) || formData.correo.length > 70) {
-            errors.push("Invalid correo. correo should be a valid direccion and cannot exceed 70 characters.");
+            errors.push("Correo no válido. Debe de ser un correo válido y de menos de 70 caracteres");
         }
 
         if (!/^\d{1,70}$/.test(formData.telefono) || formData.telefono.length > 70) {
-            errors.push("Invalid telefono number. telefono number should only contain digits and cannot exceed 70 characters.");
+            errors.push("Numero de telefono no válido.");
         }
 
         if (formData.contraseña !== formData.contraseña2) {
-            errors.push("Passwords do not match.");
+            errors.push("Las contraseñas no coinciden");
         }
 
         if (formData.direccion.length > 128) {
-            errors.push("direccion exceeds the maximum length of 128 characters.");
+            errors.push("La direccion debe de tener menso de 128 cáracteres");
         }
 
         return errors;
@@ -108,12 +108,12 @@ function SignupForm() {
                 setMensaje(responseData.mensaje);
                 setNotificationText(response.data.mensaje);
                 setShowNotification(true);
-                if (responseData.mensaje == "Signed up Successfully") {
+                if (responseData.mensaje == "Usuario registrado correctamente.") {
                     setSignedUp(true);
                 }
             })
             .catch((error) => {
-                console.error("Error submitting the form:", error);
+                console.error("Error con el formulario:", error);
             });
     };
 
@@ -149,7 +149,7 @@ function SignupForm() {
                             <div className="row g-2">
                                 <div data-mdb-input-init className="col-sm form-outline mb-3">
                                     <label htmlFor="email" className="form-label">Correo electrónico </label>
-                                    <input className="form-control form-control-lg" id="email" type="email" placeholder="Correo..." name="Correo" value={formData.correo} onChange={handleChange} required />
+                                    <input className="form-control form-control-lg" id="email" type="email" placeholder="Correo..." name="correo" value={formData.correo} onChange={handleChange} required />
                                 </div>
                                 <div data-mdb-input-init className="col-sm form-outline mb-3">
                                     <label htmlFor="phone" className="form-label">Teléfono</label>

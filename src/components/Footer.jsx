@@ -1,7 +1,41 @@
-import React from "react";
+import React, {useState} from "react";
 import "../styles/Footer.css";
+import axios from "./axios";
+import Notificacion from "./Notificacion";
 
 export default function Footer() {
+
+  const [correo, setCorreo] = useState("");
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationText, setNotificationText] = useState("");
+
+
+  function handleChange(event) {
+    setCorreo(event.target.value);
+  }
+  const closeNotification = () => {
+    setShowNotification(false);
+    setNotificationText("");
+  };  
+  function handleSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("correo", correo);
+    axios
+      .post("/subscribe.php", formData)
+      .then((response) => {
+        console.log(typeof response.data.mensaje);
+        console.log(notificationText);
+        console.log(showNotification);
+        setNotificationText(response.data.mensaje)
+        setShowNotification(true)
+      })
+      .catch((error) => {
+        setNotificationText("Something went wrong!")
+        console.error(error);
+      });
+      setCorreo("");
+  }
   return (
     <footer className="bg-dark pb-0 text-white pt-4 mt-4">
       <div className="container">
@@ -33,8 +67,11 @@ export default function Footer() {
           <div className="order-md-3 col-md-8 col-lg-4">
             <h5 className="eyebrow mb-1">Subscribete a la Newsletter</h5>
             <div className="input-combined mb-3">
-              <input type="text" className="form-control" placeholder="Tu correo..." aria-label="Your Email" aria-describedby="button-addon2" />
-              <button className="btn btn-outline-secondary" type="button" id="button-addon2">Subscribete</button>
+              <form onSubmit={handleSubmit}>
+                <input type="email" className="form-control" id="email-input" placeholder="Tu correo..." value={correo} name="correo" aria-label="Your Email" aria-describedby="button-addon2" required
+                onChange={handleChange} />
+                <button className="btn btn-outline-secondary" type="submit" id="button-addon2">Subscribete</button>
+              </form>
             </div>
             <ul className="row list-unstyled">
               <li className="col"><a href="#!" className="text-white"><i className="bi bi-facebook"></i></a></li>
@@ -66,6 +103,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
+      {showNotification && <Notificacion show={showNotification} onClose={closeNotification} text={notificationText} />}
     </footer>
   );
 }

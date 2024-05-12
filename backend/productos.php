@@ -1,64 +1,26 @@
 <?php
-require_once 'database.php';
+require_once './database.php';
 
 $response = array();
-$response['mensaje'] = "Algo ha salido mal :/!";
+$response['mensaje'] = '';
+$response['productos'] = array(); 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nombre = $_POST['nombre'];
-    $correo = $_POST['correo'];
-    $telefono = $_POST['telefono'];
-    $direccion = $_POST['direccion'];
-    $productoIDyCantidades = $_POST['productoIDyCantidades'];
-
-    $sql = "INSERT INTO pedidos (nombre, correo, telefono, direccion) VALUES (?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $stmt = $conn->prepare("SELECT * FROM `productos`");
     if (!$stmt) {
-        die('Fallo: ' . htmlspecialchars($conn->error));
+        die("Sentencia fallo: " . $conn->error);
     }
+    if ($stmt->execute()){
+        $result = $stmt->get_result();
 
-    if (!$stmt->bind_param('ssss', $nombre, $correo, $telefono, $direccion)) {
-        die('Fallo al bindear los parámetros: ' . htmlspecialchars($stmt->error));
-    }
-
-    if (!$stmt->execute()) {
-        die('Ejecución fallida: ' . htmlspecialchars($stmt->error));
-    }
-
-    $pedidoID = $stmt->insert_id;
-
-    foreach ($productoIDyCantidades as $item) {
-        $productoID = intval($item['productoID']);
-        $cantidad = intval($item['cantidad']);
-
-        $sql = "INSERT INTO productos_pedidos (pedidoID, productoID, cantidad) VALUES (?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-
-        if (!$stmt) {
-            die('Fallo para productos_pedidos: ' . htmlspecialchars($conn->error));
+        while ($row = $result->fetch_assoc()) {
+            $response['productos'][] = $row;
         }
-
-        if (!$stmt->bind_param('iii', $pedidoID, $productoID, $cantidad)) {
-            die('Fallo al bindear los parámetros para productos_pedidos: ' . htmlspecialchars($stmt->error));
-        }
-
-        if (!$stmt->execute()) {
-            die('Ejecución fallida para productos_pedidos: ' . htmlspecialchars($stmt->error));
-        }
-
-        $stmt->close();
+        $response['mensaje'] = 'Productos mostrados';
+    } else{
+        $response['mensaje'] = 'Hubo un error';
     }
+    $stmt->close();
 
-    $response = [
-        "pedidoID" => $pedidoID,
-        "mensaje" => "Pedido realizado. Pronto contactaremos contigo...",
-    ];
-    echo json_encode($response);
-} else {
-    http_response_code(405); 
-    $response = [
-        "mensaje" => "Método de solicitud no admitido.",
-    ];
-    echo json_encode($response);
 }
+echo json_encode($response);

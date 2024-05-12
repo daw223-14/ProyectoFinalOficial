@@ -1,13 +1,7 @@
 import {Route, Routes, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import Home from './paginas/Home';
-/*;
-import ContactUs from './paginas/ContactUs';
-
-;
-import Checkout from './paginas/Checkout';
-;
- */import LoginAdmin from './components/LoginAdmin';
+import LoginAdmin from './components/LoginAdmin';
 import AdminComponent from './paginas/Admin';
 import Cabecera from './components/Cabecera';
 import Productos from './paginas/Productos';
@@ -17,7 +11,9 @@ import Mujer from './paginas/Mujer';
 import Footer from './components/Footer';
 import Login from './components/LoginUser';
 import Registro from './components/RegistroUser';
+import Carrito from './paginas/Carrito';
 import useAuthVerification from './components/useAuthVerification'; 
+import ListaDeseos from './components/ListaDeseos';
 
 function App() {
   const location = useLocation();
@@ -31,10 +27,6 @@ function App() {
       <Cabecera />
       <Routes>
         <Route exact path="/" element={<Home />} />
-        
-        {/* />
-        <Route path="/contactus" element={<ContactUs />} />
-          */}
         <Route path="/loginAdmin" element={<LoginAdmin />} />
         <Route path="/registro" element={<Registro />} />
         <Route path="/producto/:productoID" element={<Productos />} />
@@ -43,8 +35,8 @@ function App() {
         <Route path="/niños" element={<Niños />} />
         <Route path="/admin" element={<AdminComponent />} />
         <Route path="/login" element={<Login />} />
-        {/* <Route path="/checkout" element={<Checkout />} />
-         */}
+        <Route path="/carrito" element={<Carrito />} />
+        <Route path='/listaDeseos' element={<ListaDeseos />}/>
       </Routes>
       <br />
       <Footer />

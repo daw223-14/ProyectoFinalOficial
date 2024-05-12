@@ -14,8 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $direccion = trim($_POST['direccion']);
     $productos = $_POST['productoIDyCantidades'];
 
-    // Process and use the data as needed
-    // For example, you can create an array with the user data
     $userData = [
         'nombre' => $nombre,
         'correo' => $correo,

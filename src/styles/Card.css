@@ -1,9 +1,13 @@
-.card{
+.section .card{
     border-radius: 25px;
     border: 0;
     box-shadow: 3px 5px 6px rgba(0, 0, 0, 0.435);
     margin-bottom: 30px;
+    transition: transform 0.3s ease;
 }
+.section .card:hover {
+    transform: scale(1.1); /* Hace que la carta se agrande al 110% al pasar el ratón por encima */
+  }
 .section #sale{
     background-color: rgb(83, 83, 83);
     color: white;

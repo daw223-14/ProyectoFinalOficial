@@ -7,22 +7,21 @@ error_reporting(E_ALL);
 $response = array();
 $response['mensaje'] = '';
 $response['productos'] = array();
-$productos = array();
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $stmt = $conn->prepare("SELECT * FROM `productos`");
 
     if (!$stmt) {
-        die("Sentencia fallo: " . $conn->error);
+        die("Sentencia falló: " . $conn->error);
     }
-    if ($stmt->execute()){
+    if ($stmt->execute()) {
         $result = $stmt->get_result();
 
         while ($row = $result->fetch_assoc()) {
             $response['productos'][] = $row;
         }
         $response['mensaje'] = 'Productos mostrados';
-    } else{
+    } else {
         $response['mensaje'] = 'Hubo un error';
     }
     $stmt->close();
@@ -41,12 +40,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $stmt = $conn->prepare("INSERT INTO `productos` (nombre, genero, descripcion, marca, precio, cantidadVendido, fechaAñadido, rutaimg, precio_anterior) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
     if (!$stmt) {
-        die("Sentencia fallo: " . $conn->error);
+        die("Sentencia falló: " . $conn->error);
     }
     $stmt->bind_param("ssssdissi", $nombre, $genero, $descripcion, $marca, $precio, $cantidadVendido, $fechaAñadido, $rutaimg, $precio_anterior);
-    if ($stmt->execute()){
+    if ($stmt->execute()) {
         $response['mensaje'] = "Insertado correctamente";
-    } else{
+    } else {
         $response['mensaje'] = 'Hubo un error';
     }
 
@@ -58,6 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $stmt->close();
 }
+
 
 // Actualizar un producto (operación de actualización)
 if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
@@ -78,12 +78,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
 
     if ($stmt->execute()) {
         // Producto actualizado correctamente
-        $response = array("mensaje" => "Producto actualizado correctamente");
-        http_response_code(200); // OK
+        $response['mensaje'] = "Producto actualizado correctamente";
     } else {
         // Error al actualizar el producto
-        $response = array("mensaje" => "Error al actualizar el producto: " . $conn->error);
-        http_response_code(500); // Internal Server Error
+        $response['mensaje'] = "Error al actualizar el producto ";
     }
     $stmt->close();
 }
@@ -97,10 +95,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     $sql = "DELETE FROM productos WHERE productoID=$productoID";
 
     if ($conn->query($sql) === TRUE) {
-        echo json_encode(array("mensaje" => "Producto eliminado correctamente"));
+        $response['mensaje'] = "Producto eliminado correctamente";
     } else {
-        echo json_encode(array("mensaje" => "Error al eliminar el producto: " . $conn->error));
+        $response['mensaje'] = "Error al eliminar el producto: ";
     }
 }
 $conn->close();
+
 echo json_encode($response);

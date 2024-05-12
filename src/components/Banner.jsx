@@ -10,6 +10,9 @@ export default function Banner() {
                 <div className="carousel-item">
                     <img src="src/assets/banner.jpg" className="d-block w-100" alt="..." />
                 </div>
+                <div className="carousel-item">
+                    <img src="src/assets/banner4.jpg" className="d-block" alt="..." />
+                </div>
                 <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
                     <span className="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span className="visually-hidden">Previous</span>

@@ -5,14 +5,20 @@ const AppContext = createContext();
 const AppProvider = ({ children }) => {
   const initialToken = localStorage.getItem("token") || "";
   const initialCarritoItems = JSON.parse(localStorage.getItem("carritoItems")) || [];
+  const initialListaDeseos = JSON.parse(localStorage.getItem("listaDeseos")) || [];
 
   const [isUserLogged, setIsUserLogged] = useState(false);
   const [token, setToken] = useState(initialToken);
   const [carritoItems, setCarritoItems] = useState(initialCarritoItems);
+  const [listaDeseos, setListaDeseos] = useState(JSON.parse(localStorage.getItem("listaDeseos")) || []);
 
   useEffect(() => {
     localStorage.setItem("carritoItems", JSON.stringify(carritoItems));
   }, [carritoItems]);
+
+  useEffect(() => {
+    localStorage.setItem("listaDeseos", JSON.stringify(listaDeseos));
+  }, [listaDeseos]);
 
   const handleLogout = () => {
     setIsUserLogged(false);
@@ -33,8 +39,10 @@ const AppProvider = ({ children }) => {
     handleLogout,
     handleLoginToken,
     carritoItems,
-    setCarritoItems
-  }), [isUserLogged, token, carritoItems]);
+    setCarritoItems,
+    listaDeseos,
+    setListaDeseos
+  }), [isUserLogged, token, carritoItems, listaDeseos]);
 
   return (
     <AppContext.Provider value={appContextValue}>
@@ -43,4 +51,4 @@ const AppProvider = ({ children }) => {
   );
 };
 
-export { AppContext, AppProvider};
+export { AppContext, AppProvider };

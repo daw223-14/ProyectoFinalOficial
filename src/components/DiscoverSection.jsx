@@ -1,6 +1,5 @@
 import React from "react";
 import Categorias from "./CategoriasBanner";
-import "/src/styles/Card.css";
 
 function DiscoverSection() {
     return (

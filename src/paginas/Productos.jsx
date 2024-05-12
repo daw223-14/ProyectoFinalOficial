@@ -3,6 +3,7 @@ import axios from "./../components/axios";
 import { useParams } from "react-router-dom";
 import ImageSlider from "../components/ImageSlider";
 import { AppContext } from "../components/AppContext";
+import "./../styles/ProductPage.css";
 
 function Productos() {
     const { productoID } = useParams();
@@ -10,8 +11,7 @@ function Productos() {
     const [imagen, setImagen] = useState([]);
     const [selectedTalla, setSelectedTalla] = useState("");
     const { carritoItems, setCarritoItems } = useContext(AppContext);
-    const productoEnCarrito = carritoItems.find((item) => item.productoID === productoID);
-    const cantidadEnCarrito = productoEnCarrito ? productoEnCarrito.cantidad : 0;
+
     const fetchData = async () => {
         try {
             const response = await axios.get("/api.php", {
@@ -57,7 +57,7 @@ function Productos() {
                     talla: selectedTalla,
                     rutaimg,
                     cantidad: 1
-                },
+                }
             ]);
         }
     };
@@ -73,75 +73,41 @@ function Productos() {
         }
     }, [producto]);
 
-    const handleDecrementQuantity = (e) => {
-        e.stopPropagation();
-        setCarritoItems((prevCartItems) =>
-            prevCartItems.map((item) =>
-                item.productoID === productoID && item.cantidad > 0
-                    ? { ...item, cantidad: item.cantidad - 1 }
-                    : item
-            ).filter((item) => item.cantidad > 0)
-        );
-    };
-
     const handleTallaChange = (e) => {
         setSelectedTalla(e.target.value);
     };
 
     return (
         <main className="full-block">
-            <div className="full-block product-section">
-                <div className="container full-product-page">
-                    <div className="about-product-n-info">
-                        <div className="about-product">
-                            <div className="products-photos">
-                                <ImageSlider images={imagen} />
+            <div className="container px-4 px-lg-5 my-5">
+                <div className="row gx-4 gx-lg-5 align-items-center">
+                    <div className="col-md-6">
+                        <img src={`/` + producto.rutaimg} alt="" />
+                    </div>
+                    <div className="col-md-6">
+                        <div>
+                            <div className="small mb-1 text-capitalize">{producto.genero}</div>
+                            <div className="display-5 fw-bolder">
+                                {producto.nombre}
                             </div>
-                            <div className="product-desc">
-                                <div className="product-desc_content">
-                                    <div>
-                                        <h2>{producto.nombre}</h2>
-                                    </div>
-                                    <div>
-                                        <p className="price-wrapper"><span className="prouct-item-little-desc_product-price">{producto.precio}€</span> {producto.precio_anterior ? <del className="producto-item-little-desc_old-producto-precio">{producto.precio_anterior}€</del> : null}</p>
-                                        <p className="product-desc_content-text">{producto.descripcion}</p>
-                                    </div>
-                                    <div className="">
-                                        <label htmlFor="">Selecciona una talla:</label>
-                                        <select id="tallaSelect" value={selectedTalla} onChange={handleTallaChange}>
-                                            <option value="">Seleccionar</option>
-                                            {producto.tallas && producto.tallas.map((talla) => (
-                                                <option key={talla} value={talla}>
-                                                    {talla}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    </div>
-                                    <div className="wishlist-cart">
-                                        <div className="product-page-btns">
-                                            <div className="product-page-add-remove">
-                                                <button onClick={handleAddToCart} type="submit" id="add-to-wishlist-btn">Añadir al carrito</button>
-                                            </div>
-                                            <div className="quantity-controls">
-                                                <div>
-                                                    Control de cantidad
-                                                    <button onClick={handleDecrementQuantity} className="quantity-btn">
-                                                        -
-                                                    </button>
-                                                    <button onClick={handleAddToCart} className="quantity-btn">
-                                                        +
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <p>Cantidad: {cantidadEnCarrito}</p>
-                                        </div>
-                                        <div className="wishlist-and-share">
-                                            <p>Categoria: <span id="product-category-name">{producto.genero}</span></p>
-                                        </div>
-                                    </div>
+                            <p>{producto.descripcion}</p>
+                            <div className="text-end">
+                                {producto.precio_anterior ? <span className="text-decoration-line-through text-danger">{producto.precio_anterior}€</span> : null}
+                                <span className="fw-bolder">{producto.precio}€</span>
+                            </div>
+                            <div className="row">
+                                <div className="col-5 col-xl-5 pb-5">
+                                    <label className="form-label" htmlFor="">Selecciona tu talla</label>
+                                    <select className="form-select" id="tallaSelect" value={selectedTalla} onChange={handleTallaChange}>
+                                        <option value="">Seleccionar</option>
+                                        {producto.tallas && producto.tallas.map((talla) => (
+                                            <option key={talla} value={talla}>
+                                                {talla}
+                                            </option>
+                                        ))}
+                                    </select>
                                 </div>
+                                <button className="btn btnPersonalizado" onClick={handleAddToCart} type="submit" id="add-to-wishlist-btn">Añadir al carrito</button>
                             </div>
                         </div>
                     </div>
