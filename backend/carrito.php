@@ -1,4 +1,5 @@
 <?php
+require './cors.php';
 require_once 'database.php';
 
 $response = array();

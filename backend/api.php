@@ -1,4 +1,6 @@
 <?php
+require './cors.php';
+
 require_once 'database.php';
 
 $sql = "SELECT p.*, GROUP_CONCAT(t.talla SEPARATOR ', ') AS tallas

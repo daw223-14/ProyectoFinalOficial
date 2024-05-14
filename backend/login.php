@@ -1,7 +1,7 @@
 <?php
 require_once 'database.php';
 require_once 'jwt.php';
-
+require './cors.php';
 $response = array();
 $response['mensaje'] = "";
 $response['loggedin'] = false;
@@ -9,7 +9,7 @@ $response['usuarios'] = null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $correoOusuario = $_POST['login_usuario_correo'];
-    $contraseña = $_POST['login_contraseña'];
+    $contrasena = $_POST['login_contrasena'];
 
     $stmt = $conn->prepare("SELECT * FROM `usuarios` WHERE `correo` = ? OR `username` = ?");
     if (!$stmt) {
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($resultado->num_rows === 1) {
             $usuarios = $resultado->fetch_assoc();
-            if (password_verify($contraseña, $usuarios['contraseña'])) {
+            if (password_verify($contrasena, $usuarios['contrasena'])) {
                 $response['mensaje'] = "Bienvendio " . $usuarios['username'] . "!";
                 $response['loggedin'] = true;
 

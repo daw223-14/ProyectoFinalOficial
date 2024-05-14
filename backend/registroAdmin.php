@@ -1,13 +1,13 @@
 <?php
 require_once 'database.php';
-
+require './cors.php';
 $response = array();
 $response['mensaje'] = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $usuario = $_POST['usuario'];
-    $contraseña = $_POST['contraseña'];
-    $contraseñaHash = password_hash($contraseña, PASSWORD_DEFAULT);
+    $contrasena = $_POST['contrasena'];
+    $contrasenaHash = password_hash($contrasena, PASSWORD_DEFAULT);
 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errores = [];
@@ -32,12 +32,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $checkResult->close();
         }
         if (empty($errores)){
-            $stmt = $conn->prepare("INSERT INTO `admin` (`usuario`, `contraseña`) VALUES (?,?)");
+            $stmt = $conn->prepare("INSERT INTO `admin` (`usuario`, `contrasena`) VALUES (?,?)");
             if (!$stmt){
                 die('Error con la consulta SQL' . $conn->error);
             }
 
-            $stmt->bind_param("ss", $usuario, $contraseñaHash);
+            $stmt->bind_param("ss", $usuario, $contrasenaHash);
             if($stmt->execute()) {
                 $response['mensaje'] = "Registrado correctamente";
             } else{

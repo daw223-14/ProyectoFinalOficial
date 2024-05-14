@@ -1,7 +1,7 @@
 <?php
 require_once 'database.php';
 require_once 'jwt.php'; 
-
+require './cors.php';
 $response = array();
 $response['mensaje'] = "";
 $response['loggedin'] = false;
@@ -9,7 +9,7 @@ $response['token'] = null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $usuario = $_POST['usuario'];
-    $contraseña = $_POST['contraseña'];
+    $contrasena = $_POST['contrasena'];
 
     $stmt = $conn->prepare("SELECT * FROM `admin` WHERE `usuario` = ?");
 
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $resultado = $stmt->get_result();
         if ($resultado->num_rows === 1) {
             $usuariosBD = $resultado->fetch_assoc();
-            if (password_verify($contraseña, $usuariosBD['contraseña'])) {
+            if (password_verify($contrasena, $usuariosBD['contrasena'])) {
                 $response['mensaje'] = "Bienvendio " . $usuariosBD['usuario'];
                 $response['loggedin'] = true;
 

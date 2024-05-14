@@ -1,5 +1,6 @@
 <?php
 require_once 'database.php';
+require './cors.php';
 require_once 'jwt.php';
 
 $response = array();

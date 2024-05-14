@@ -1,6 +1,6 @@
 <?php
 require_once 'database.php';
-
+require './cors.php';
 $response = array();
 $response['mensaje'] = "";
 
@@ -8,9 +8,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = $_POST['nombre'];
     $username = $_POST['username'];
     $correo = $_POST['correo'];
-    $contraseña = $_POST['contraseña'];
-    $contraseña2 = $_POST['contraseña2'];
-    $contraseñaHash = password_hash($contraseña, PASSWORD_DEFAULT);
+    $contrasena = $_POST['contrasena'];
+    $contrasena2 = $_POST['contrasena2'];
+    $contrasenaHash = password_hash($contrasena, PASSWORD_DEFAULT);
     $direccion = $_POST['direccion'];
     $telefono = $_POST['telefono'];
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -20,10 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $telefonoMaxLength = 70;
         $direccionMaxLength = 128;
 
-        $numero = preg_match('@[0-9]@', $contraseña);
-        $uppercase = preg_match('@[A-Z]@', $contraseña);
-        $lowercase = preg_match('@[a-z]@', $contraseña);
-        $caracEspecial = preg_match('@[^\w]@', $contraseña);
+        $numero = preg_match('@[0-9]@', $contrasena);
+        $uppercase = preg_match('@[A-Z]@', $contrasena);
+        $lowercase = preg_match('@[a-z]@', $contrasena);
+        $caracEspecial = preg_match('@[^\w]@', $contrasena);
 
         $errores = [];
         if (!isset($_POST['terms'])) {
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $errores[] = 'El numero supera los ' . $telefonoMaxLength . ' caracteres.';
         }
 
-        if ($contraseña != $contraseña2) {
+        if ($contrasena != $contrasena2) {
             $errores[] = 'Las contraseñas no coinciden.';
         }
 
@@ -80,12 +80,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $checkResult->close();
         }
         if (empty($errores)) {
-            $stmt = $conn->prepare("INSERT INTO `usuarios` (`nombre`, `username`, `correo`, `contraseña`, `direccion`, `telefono`) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt = $conn->prepare("INSERT INTO `usuarios` (`nombre`, `username`, `correo`, `contrasena`, `direccion`, `telefono`) VALUES (?, ?, ?, ?, ?, ?)");
             if (!$stmt) {
                 die("Prepare failed: " . $conn->error);
             }
 
-            $stmt->bind_param("ssssss", $nombre, $username, $correo, $contraseñaHash, $direccion, $telefono);
+            $stmt->bind_param("ssssss", $nombre, $username, $correo, $contrasenaHash, $direccion, $telefono);
 
             if ($stmt->execute()) {
                 $response['mensaje'] = "Registro correcto";

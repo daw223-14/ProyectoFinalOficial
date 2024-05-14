@@ -1,5 +1,6 @@
 <?php
 require_once 'database.php';
+require './cors.php';
 $response = array();
 $response['mensaje'] = "Lo siento, algo ha ido mal :/!";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

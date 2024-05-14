@@ -1,5 +1,6 @@
 <?php
 require_once './database.php';
+require './cors.php';
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -34,15 +35,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $marca = $_POST['marca'];
     $precio = $_POST['precio'];
     $cantidadVendido = $_POST['cantidadVendido'];
-    $fechaAñadido = $_POST['fechaAñadido'];
+    $fechaAnadido = $_POST['fechaAnadido'];
     $rutaimg = $_POST['rutaimg'];
     $precio_anterior = $_POST['precio_anterior'];
 
-    $stmt = $conn->prepare("INSERT INTO `productos` (nombre, genero, descripcion, marca, precio, cantidadVendido, fechaAñadido, rutaimg, precio_anterior) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO `productos` (nombre, genero, descripcion, marca, precio, cantidadVendido, fechaAnadido, rutaimg, precio_anterior) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
     if (!$stmt) {
         die("Sentencia falló: " . $conn->error);
     }
-    $stmt->bind_param("ssssdissi", $nombre, $genero, $descripcion, $marca, $precio, $cantidadVendido, $fechaAñadido, $rutaimg, $precio_anterior);
+    $stmt->bind_param("ssssdissi", $nombre, $genero, $descripcion, $marca, $precio, $cantidadVendido, $fechaAnadido, $rutaimg, $precio_anterior);
     if ($stmt->execute()) {
         $response['mensaje'] = "Insertado correctamente";
     } else {
@@ -69,12 +70,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $marca = $data['marca'];
     $precio = $data['precio'];
     $cantidadVendido = $data['cantidadVendido'];
-    $fechaAñadido = $data['fechaAñadido'];
+    $fechaAnadido = $data['fechaAnadido'];
     $rutaimg = $data['rutaimg'];
     $precio_anterior = $data['precio_anterior'];
 
-    $stmt = $conn->prepare("UPDATE `productos` SET `nombre`=?, `genero`=?, `descripcion`=?, `marca`=?, `precio`=?, `cantidadVendido`=?, `fechaAñadido`=?, `rutaimg`=?, `precio_anterior`=? WHERE `productoID`=?");
-    $stmt->bind_param("ssssdissii", $nombre, $genero, $descripcion, $marca, $precio, $cantidadVendido, $fechaAñadido, $rutaimg, $precio_anterior, $productoID);
+    $stmt = $conn->prepare("UPDATE `productos` SET `nombre`=?, `genero`=?, `descripcion`=?, `marca`=?, `precio`=?, `cantidadVendido`=?, `fechaAnadido`=?, `rutaimg`=?, `precio_anterior`=? WHERE `productoID`=?");
+    $stmt->bind_param("ssssdissii", $nombre, $genero, $descripcion, $marca, $precio, $cantidadVendido, $fechaAnadido, $rutaimg, $precio_anterior, $productoID);
 
     if ($stmt->execute()) {
         // Producto actualizado correctamente

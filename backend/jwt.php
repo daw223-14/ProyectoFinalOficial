@@ -3,7 +3,7 @@ require_once 'vendor/src/BeforeValidException.php';
 require_once 'vendor/src/ExpiredException.php';
 require_once 'vendor/src/SignatureInvalidException.php';
 require_once 'vendor/src/JWT.php';
-
+require './cors.php';
 use \Firebase\JWT\JWT;
 use \Firebase\JWT\KEY;
 $secretKey = "altini";

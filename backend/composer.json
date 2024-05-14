@@ -1,0 +1,19 @@
+{
+    "name": "jimmy/backend",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Jimmy\\Backend\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "daw223-14",
+            "email": "jimmy.almaquio.cespedes@iesjulianmarias.es"
+        }
+    ],
+    "require": {
+        "tuupola/cors-middleware": "^1.4",
+        "slim/slim": "^4.13"
+    }
+}
