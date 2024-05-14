@@ -10,8 +10,15 @@ RUN apt-get update \
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
+
+RUN rm -r /etc/apache2/sites-available/000-default.conf
+COPY sites-available /etc/apache2/sites-available/
+RUN a2ensite sites.conf
+
 # Establece el directorio de trabajo
 WORKDIR /var/www/html
+
+
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 # Copia los archivos composer.json y composer.lock
 COPY composer.json composer.lock ./
