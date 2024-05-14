@@ -8,17 +8,14 @@ services:
     ports:
       - "3306:3306"
     networks:
-      redCycle:
-        ipv4_address: 192.168.20.2
-
+      - my-network
   frontend:
     build: ./frontend
     container_name: daw-frontend
     ports:
       - "8080:8080"
     networks:
-      redCycle:
-        ipv4_address: 192.168.20.3
+      - my-network
 
   backend:
     build: ./backend
@@ -26,12 +23,9 @@ services:
     ports:
       - "80:80"
     networks:
-      redCycle:
-        ipv4_address: 192.168.20.4
+      - my-network
 
 networks:
-  redCycle:
-    ipam:
-      config:
-        - subnet: 192.168.20.0/24
+  my-network:
+    driver: bridge
 
