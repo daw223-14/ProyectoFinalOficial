@@ -6,8 +6,6 @@ ENV MYSQL_ROOT_PASSWORD=root
 ENV MYSQL_DATABASE=cycle 
 
 # Copia los archivos SQL de inicialización (si los tienes) al directorio /docker-entrypoint-initdb.d/
-# Por ejemplo, si tienes un archivo llamado init.sql en el mismo directorio que este Dockerfile,
-# lo copiarías así:
 COPY cycle.sql /docker-entrypoint-initdb.d/
 RUN chmod 755 /docker-entrypoint-initdb.d/cycle.sql
 
