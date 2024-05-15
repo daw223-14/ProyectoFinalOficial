@@ -15,7 +15,7 @@ services:
     build: ./frontend
     container_name: daw-frontend
     ports:
-      - "3000:3000"
+      - "80:80"  # Cambiar el puerto del contenedor del frontend de 3000 a 80
     networks:
       my-network:
         ipv4_address: 172.20.0.3  # Dirección IP deseada para el servicio de frontend
@@ -24,7 +24,7 @@ services:
     build: ./backend
     container_name: daw-backend
     ports:
-      - "80:80"
+      - "8080:80"  # Cambiar el puerto del host a 8080 para evitar conflictos con el frontend
     networks:
       my-network:
         ipv4_address: 172.20.0.4  # Dirección IP deseada para el servicio de backend

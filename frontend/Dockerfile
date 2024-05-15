@@ -16,8 +16,8 @@ COPY . .
 # Compila tu aplicación
 RUN yarn build
 
-# Expone el puerto 3000 para que la aplicación sea accesible desde fuera del contenedor
-EXPOSE 3000
+# Expone el puerto 80 para que la aplicación sea accesible desde fuera del contenedor
+EXPOSE 80
 
 # Comando para iniciar tu aplicación
 CMD ["yarn", "start"]
