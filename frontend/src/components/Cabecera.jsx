@@ -10,7 +10,8 @@ export default function Navbar() {
                 <div className='collapse navbar-collapse justify-content-start order-1 order-lg-1'></div>
                 <Link to="/" className="navbar-brand"><img src='src/assets/titulo.png' style={{ width: 100 }} /></Link>
 
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
 

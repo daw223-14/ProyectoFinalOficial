@@ -1,8 +1,8 @@
 <?php
-$host = "mysql_database";
+$host = "mysql_database:3306";
 $dbname = "cycle";
 $username = "root";
-$password = "root";
+$password = "";
 
 $conn = new mysqli($host, $username, $password, $dbname);
 

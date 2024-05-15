@@ -39,7 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $rutaimg = $_POST['rutaimg'];
     $precio_anterior = $_POST['precio_anterior'];
 
-    $stmt = $conn->prepare("INSERT INTO `productos` (nombre, genero, descripcion, marca, precio, cantidadVendido, fechaAnadido, rutaimg, precio_anterior) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO `productos` (nombre, genero, descripcion, marca, precio, 
+                    cantidadVendido, fechaAnadido, rutaimg, precio_anterior) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
     if (!$stmt) {
         die("Sentencia falló: " . $conn->error);
     }
@@ -74,7 +75,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $rutaimg = $data['rutaimg'];
     $precio_anterior = $data['precio_anterior'];
 
-    $stmt = $conn->prepare("UPDATE `productos` SET `nombre`=?, `genero`=?, `descripcion`=?, `marca`=?, `precio`=?, `cantidadVendido`=?, `fechaAnadido`=?, `rutaimg`=?, `precio_anterior`=? WHERE `productoID`=?");
+    $stmt = $conn->prepare("UPDATE `productos` 
+            SET `nombre`=?, `genero`=?, `descripcion`=?, `marca`=?, `precio`=?, `cantidadVendido`=?, `fechaAnadido`=?, `rutaimg`=?, `precio_anterior`=? 
+            WHERE `productoID`=?");
     $stmt->bind_param("ssssdissii", $nombre, $genero, $descripcion, $marca, $precio, $cantidadVendido, $fechaAnadido, $rutaimg, $precio_anterior, $productoID);
 
     if ($stmt->execute()) {
