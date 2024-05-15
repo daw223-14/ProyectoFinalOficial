@@ -2,7 +2,7 @@
 $host = "mysql_database:3306";
 $dbname = "cycle";
 $username = "root";
-$password = "";
+$password = "root";
 
 $conn = new mysqli($host, $username, $password, $dbname);
 
