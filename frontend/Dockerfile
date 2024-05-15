@@ -1,15 +1,23 @@
+# Usa la imagen base de Node.js
 FROM node:alpine
 
+# Establece el directorio de trabajo
 WORKDIR /app
 
+# Copia el archivo package.json
 COPY package.json .
 
-RUN npm install
+# Instala las dependencias
+RUN yarn install
 
+# Copia el resto de tu aplicación
 COPY . .
 
-RUN npm run build
+# Compila tu aplicación
+RUN yarn build
 
-EXPOSE 8080
+# Expone el puerto 3000 para que la aplicación sea accesible desde fuera del contenedor
+EXPOSE 3000
 
-CMD ["npm", "run", "dev"]
+# Comando para iniciar tu aplicación
+CMD ["yarn", "start"]

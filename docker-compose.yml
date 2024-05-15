@@ -4,18 +4,21 @@ services:
 
   db:
     build: ./database
-    container_name: mysql_database
+    container_name: daw-db
     ports:
       - "3306:3306"
     networks:
-      - my-network
+      my-network:
+        ipv4_address: 172.20.0.2  # Dirección IP deseada para el servicio de la base de datos
+
   frontend:
     build: ./frontend
     container_name: daw-frontend
     ports:
-      - "8080:8080"
+      - "3000:3000"
     networks:
-      - my-network
+      my-network:
+        ipv4_address: 172.20.0.3  # Dirección IP deseada para el servicio de frontend
 
   backend:
     build: ./backend
@@ -23,9 +26,12 @@ services:
     ports:
       - "80:80"
     networks:
-      - my-network
+      my-network:
+        ipv4_address: 172.20.0.4  # Dirección IP deseada para el servicio de backend
 
 networks:
   my-network:
     driver: bridge
-
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

@@ -1,5 +1,6 @@
 <?php
-$host = "mysql_database:3306";
+$host = "daw-db";
+//$host = "localhost";
 $dbname = "cycle";
 $username = "root";
 $password = "root";
