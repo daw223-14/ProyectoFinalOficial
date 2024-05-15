@@ -2,8 +2,8 @@
 
 Manual de instalación
 
-En el servidor:
-   apt update && apt upgrade
+<p>En el servidor</p>
+<p> apt update && apt upgrade </p>
 Instalar docker:
    https://docs.docker.com/engine/install/debian/
 Comprobar que docker esta instalado con:
